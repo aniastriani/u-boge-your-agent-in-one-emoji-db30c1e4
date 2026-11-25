@@ -17,7 +17,14 @@ The program writes exactly that one emoji to $MAKEFUN_OUTPUT_DIR/entry.txt
 
 import os
 
+# The glyph is one ZWJ sequence: person (U+1F9D1) + ZWJ (U+200D) +
+# laptop (U+1F4BB). Written as escapes so the source stays plain ASCII
+# and the output bytes never depend on an editor's encoding.
 EMOJI = "\U0001f9d1\u200d\U0001f4bb"  # technologist: person at a laptop
+
+
+# The file holds the glyph plus exactly one trailing newline.
+LINE_ENDING = "\n"
 
 
 def main() -> None:
@@ -25,7 +32,7 @@ def main() -> None:
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8") as handle:
-        handle.write(EMOJI + "\n")
+        handle.write(EMOJI + LINE_ENDING)
 
 
 if __name__ == "__main__":
